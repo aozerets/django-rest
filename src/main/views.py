@@ -1,10 +1,14 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import TemplateView, CreateView
 from django.urls import reverse_lazy
+from django.views.generic import TemplateView, CreateView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
+from .forms import UserForm
+from .serializers import UserProfileSerializer
+from .models import UserProfile
 
 
 class SignUp(CreateView):
-    form_class = UserCreationForm
+    form_class = UserForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
@@ -18,3 +22,12 @@ class Main(TemplateView):
             self.template_name = "main/login.html"
         return context
 
+
+class UserProfilesList(ListCreateAPIView):
+    serializer_class = UserProfileSerializer
+    queryset = UserProfile.objects.all()
+
+
+class UserProfileDetail(RetrieveUpdateDestroyAPIView):
+    serializer_class = UserProfileSerializer
+    queryset = UserProfile.objects.all()

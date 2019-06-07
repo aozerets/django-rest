@@ -1,7 +1,7 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
-from .models import Program, Lesson, Exercise, UserProfile
-from .serializers import ProgramSerializer, LessonSerializer, ExerciseSerializer, UserProfileSerializer
+from .models import Program, Lesson, Exercise
+from .serializers import ProgramSerializer, LessonSerializer, ExerciseSerializer
 
 
 class ProgramsList(ListCreateAPIView):
@@ -32,13 +32,3 @@ class ExercisesList(ListCreateAPIView):
 class ExerciseDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = ExerciseSerializer
     queryset = Exercise.objects.all()
-
-
-class UserProfilesList(ListCreateAPIView):
-    serializer_class = UserProfileSerializer
-    queryset = UserProfile.objects.all()
-
-
-class UserProfileDetail(RetrieveUpdateDestroyAPIView):
-    serializer_class = UserProfileSerializer
-    queryset = UserProfile.objects.all()
