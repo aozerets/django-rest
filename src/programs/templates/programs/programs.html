@@ -1,0 +1,29 @@
+{% extends 'registration/base.html' %}
+
+{% block title %}Programs{% endblock %}
+
+{% block body %}
+<div class="container">
+{% if user.is_authenticated %}
+    <h1>This is programs page Mr.{{ user.username }}!</h1>
+    <div class="card-columns">
+        {% for program in programs %}
+            <div class="card border-primary mb-3">
+                <div class="card-header text-center"><a href="/programs/{{program.id}}/">{{ program.title }}</a></div>
+                <div class="card-body">
+                    <h5 class="card-title">Starting at: {{ program.start }}</h5>
+                    <p class="card-text">{{ program.description }}</p>
+                    <footer class="blockquote-footer">
+                        <small>
+                            Professors:  <cite>{% for teacher in program.teachers.all %} {{ teacher.user.username }}  {% endfor %}. </cite>
+                        </small>
+                    </footer>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>You are not logged in</p>
+{% endif %}
+</div>
+{% endblock %}

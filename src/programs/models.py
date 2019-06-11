@@ -1,20 +1,29 @@
 from django.db import models
 
+from main.models import UserProfile
+
 
 class Program(models.Model):
     title = models.CharField(max_length=30)
-    start = models.DateTimeField()
-    students = models.ManyToManyField('main.UserProfile', related_name='students', blank=True)
-    teachers = models.ManyToManyField('main.UserProfile', related_name='teachers', blank=True)
+    description = models.TextField(max_length=500)
+    start = models.DateField()
+    students = models.ManyToManyField('main.UserProfile', through='Studentship', related_name='student_programs', blank=True)
+    teachers = models.ManyToManyField('main.UserProfile', related_name='teacher_programs', blank=True)
 
     def __str__(self):
         return self.title
 
 
+class Studentship(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    program = models.ForeignKey(Program, on_delete=models.CASCADE)
+
+
 class Lesson(models.Model):
     name = models.CharField(max_length=30)
-    program = models.ForeignKey(Program, on_delete=models.CASCADE)
-    day = models.DateField(blank=True)
+    description = models.TextField(max_length=500)
+    program = models.ForeignKey(Program, related_name="lessons", on_delete=models.CASCADE)
+    day = models.DateTimeField(blank=True)
 
     def __str__(self):
         return self.name

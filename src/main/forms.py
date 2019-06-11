@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from main.models import UserProfile
 
 
 class UserForm(forms.ModelForm):
@@ -41,4 +42,6 @@ class UserForm(forms.ModelForm):
         user.set_password(self.cleaned_data.get('password2'))
         if commit:
             user.save()
+            user_profile = UserProfile(user=user)
+            user_profile.save()
         return user

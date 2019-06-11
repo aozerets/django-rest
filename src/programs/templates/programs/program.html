@@ -1,0 +1,27 @@
+{% extends 'registration/base.html' %}
+
+{% block title %} {{ program.title }} {% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="card align-items-center" style="width: 800px;">
+    <img class="card-img-top" style="max-width: 20%" src="{% static 'courses/images/Burning.png' %}" alt="testing">
+    <div class="card-body">
+        <h4 class="card-title">{{ program.title }}</h4>
+        <h5 class="card-subtitle" style="font-weight: 1000">{{ program.description }}</h5>
+        <p class="card-text">{{ program.start }}</p>
+        <ul>
+            {% for teacher in program.teachers.all %}
+            <li class="text-muted"> {{ teacher.user.username }}</li>
+            <li class="text-muted"> {{ teacher.user.email }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post" action="/programs/signoncourse/">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg align-items-center" name="program_id" id="btnSignOnCourse" value="{{program.id}}">SignOnCourse</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

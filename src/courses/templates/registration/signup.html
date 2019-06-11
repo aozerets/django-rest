@@ -7,12 +7,11 @@
         {% if registered %}
         <h1>Thank you for registering!</h1>
         {% else %}
-        <h1>Register Here</h1>
-        <h3>Just fill out the form.</h3>
+        <h1>Just fill out the registration form.</h1>
         <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" name="" value="Register">
+            <button type="submit" class="btn btn-primary btn-md float-left" id="btnLogin" value="Register">Sign Up</button>
         </form>
 
         {% endif %}

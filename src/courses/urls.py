@@ -8,7 +8,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('admin/', admin.site.urls),
-    path('api/v1/', include('programs.urls')),
+    path('api/v1/', include('api.urls')),
+    path('programs/', include('programs.urls')),
     path('<page>/', include('main.urls')),
     path('', TemplateView.as_view(template_name='registration/home.html'), name='home'),
 ]

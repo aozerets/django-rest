@@ -1,34 +1,29 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView
+from rest_framework.decorators import api_view
 
-from .models import Program, Lesson, Exercise
-from .serializers import ProgramSerializer, LessonSerializer, ExerciseSerializer
+from main.models import UserProfile
+from .models import Program, Studentship
 
 
-class ProgramsList(ListCreateAPIView):
-    serializer_class = ProgramSerializer
+class Programs(ListView):
+    template_name = 'programs/programs.html'
     queryset = Program.objects.all()
+    context_object_name = 'programs'
 
 
-class ProgramDetail(RetrieveUpdateDestroyAPIView):
-    serializer_class = ProgramSerializer
+class DetailProgram(DetailView):
+    template_name = 'programs/program.html'
     queryset = Program.objects.all()
+    context_object_name = 'program'
 
 
-class LessonsList(ListCreateAPIView):
-    serializer_class = LessonSerializer
-    queryset = Lesson.objects.all()
-
-
-class LessonDetail(RetrieveUpdateDestroyAPIView):
-    serializer_class = LessonSerializer
-    queryset = Lesson.objects.all()
-
-
-class ExercisesList(ListCreateAPIView):
-    serializer_class = ExerciseSerializer
-    queryset = Exercise.objects.all()
-
-
-class ExerciseDetail(RetrieveUpdateDestroyAPIView):
-    serializer_class = ExerciseSerializer
-    queryset = Exercise.objects.all()
+@login_required
+@api_view(['POST'])
+def sign_on_course(request):
+    program = Program.objects.get(pk=request.data['program_id'])
+    user_profile = UserProfile.objects.get(user=request.user)
+    s = Studentship(user_profile=user_profile, program=program)
+    s.save()
+    return redirect('programs')

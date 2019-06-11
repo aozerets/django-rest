@@ -1,10 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .forms import UserForm
-from .serializers import UserProfileSerializer
-from .models import UserProfile
 
 
 class SignUp(CreateView):
@@ -21,13 +18,3 @@ class Main(TemplateView):
         else:
             self.template_name = "main/login.html"
         return context
-
-
-class UserProfilesList(ListCreateAPIView):
-    serializer_class = UserProfileSerializer
-    queryset = UserProfile.objects.all()
-
-
-class UserProfileDetail(RetrieveUpdateDestroyAPIView):
-    serializer_class = UserProfileSerializer
-    queryset = UserProfile.objects.all()
