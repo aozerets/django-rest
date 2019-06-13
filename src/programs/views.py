@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 from rest_framework.decorators import api_view
 
 from main.models import UserProfile
-from .models import Program, Studentship
+from .models import Program
 
 
 class Programs(ListView):
@@ -24,6 +24,5 @@ class DetailProgram(DetailView):
 def sign_on_course(request):
     program = Program.objects.get(pk=request.data['program_id'])
     user_profile = UserProfile.objects.get(user=request.user)
-    s = Studentship(user_profile=user_profile, program=program)
-    s.save()
+    program.students.add(user_profile)
     return redirect('programs')
