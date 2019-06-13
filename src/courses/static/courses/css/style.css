@@ -1,9 +1,0 @@
-.con_linear {
-    margin: 0 0 20px 0;
-    height: 30%;
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, #FFE1FF), color-stop(61%, #C864FF), to(#9600FF));
-    background-image: -webkit-linear-gradient(left, #FFE1FF 0%, #C864FF 61%, #9600FF 100%);
-    background-image: -moz-linear-gradient(left, #FFE1FF 0%, #C864FF 51%, #9600FF 100%);
-    background-image: -o-linear-gradient(left, #FFE1FF 0%, #C864FF 51%, #9600FF 100%);
-    background-image: linear-gradient(90deg, #FFE1FF 0%, #C864FF 51%, #9600FF 100%);
-}
