@@ -9,7 +9,7 @@
     <div class="card-columns">
         {% for program in programs %}
             <div class="card border-primary mb-3">
-                <div class="card-header text-center"><a href="/programs/{{program.id}}/">{{ program.title }}</a></div>
+                <div class="card-header text-center"><a href="{% url 'program' program.id %}">{{ program.title }}</a></div>
                 <div class="card-body">
                     <h5 class="card-title">Starting at: {{ program.start }}</h5>
                     <p class="card-text">{{ program.description }}</p>
