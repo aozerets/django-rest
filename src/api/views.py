@@ -2,7 +2,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from django.contrib.auth.models import User
 from programs.models import Program, Lesson, Exercise
 from main.models import UserProfile
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 from .serializers import ProgramSerializer, LessonSerializer, ExerciseSerializer, UserProfileSerializer, CreateUserSerializer
 
 
@@ -13,11 +13,13 @@ class CreateUser(CreateAPIView):
 
 
 class UserProfilesList(ListCreateAPIView):
+    permission_classes = (IsAdminUser,)
     serializer_class = UserProfileSerializer
     queryset = UserProfile.objects.all()
 
 
 class UserProfileDetail(RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAdminUser,)
     serializer_class = UserProfileSerializer
     queryset = UserProfile.objects.all()
 
