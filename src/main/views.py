@@ -1,12 +1,18 @@
-from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView
 from django.shortcuts import redirect
 
+from .forms import UserForm
+
 
 class Main(TemplateView):
-    #success_url = reverse_lazy("/api/v1/users/")
-    def get(self, request):
-        return redirect("/api/v1/users/")
+    def get(self, request, *args, **kwargs):
+        return redirect("signup")
 
-    def post(self, request):
-        return redirect("/api/v1/users/")
+    def post(self, request, *args, **kwargs):
+        return redirect("signup")
+
+
+class SignUp(CreateView):
+    form_class = UserForm
+    success_url = '/api/v1/programs/'
+    template_name = 'registration/signup.html'
