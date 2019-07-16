@@ -39,8 +39,8 @@ To start celery queries run this commands("beat" means periodic tasks):
 ...\django-rest\src>>>celery -A courses beat -l info
 ...\django-rest\src>>>celery -A courses worker --pool=solo -l info
 ```
-Now we have this tasks:
-update_currency             - periodic task updating currency rate
-send_mail                   - task executing after registration
-sending_nearest_lesson_mail - searching nearest lesson and sending mail
+Now we have this tasks:<br>
+update_currency             - periodic task updating currency rate<br>
+send_mail                   - task executing after registration<br>
+sending_nearest_lesson_mail - searching nearest lesson and sending mail<br>
 see-you-in-thirty-seconds-task  - test task
