@@ -26,3 +26,21 @@ Available urls:<br>
 "/api/v1/exercises/"         -  GET, POST<br>
 "/api/v1/exercises/<int:pk>" -  GET, DELETE, PUT<br>
 "<page>/"                     -  redirect to "/api/v1/users/"<br>
+
+##### Tasks
+We are using celery with redis.
+U must install redis server and start it on chosen port wich U must set in [courses/settings](/src/courses/settings) in "BROKER_URL".
+```
+   >>>apt-get install redis-server
+   >>>pip install djcelery
+```
+To start celery queries run this commands("beat" means periodic tasks):
+```
+...\django-rest\src>>>celery -A courses beat -l info
+...\django-rest\src>>>celery -A courses worker --pool=solo -l info
+```
+Now we have this tasks:
+update_currency             - periodic task updating currency rate
+send_mail                   - task executing after registration
+sending_nearest_lesson_mail - searching nearest lesson and sending mail
+see-you-in-thirty-seconds-task  - test task

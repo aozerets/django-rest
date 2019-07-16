@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from main.models import UserProfile
+from .models import UserProfile
+from .tasks import send_mail
 
 
 class UserForm(forms.ModelForm):
@@ -44,4 +45,7 @@ class UserForm(forms.ModelForm):
             user.save()
             user_profile = UserProfile(user=user)
             user_profile.save()
+            sub = "Awesome registration"
+            text_content = "Greetings! Glad to see u in our Programs"
+            send_mail.delay(sub, self.cleaned_data.get("email"), text_content)
         return user

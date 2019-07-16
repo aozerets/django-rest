@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'main',
     'programs',
     'courses',
+    'djcelery',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'courses',
         'USER': 'admin',
-        'PASSWORD': '',
+        'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -104,3 +105,19 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'server@gmail.com'
+EMAIL_HOST_PASSWORD = 'server password'
+EMAIL_PORT = 587
+
+BROKER_URL = 'redis://localhost:6379/0'
+BROKER_TRANSPRT = 'redis'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+#CELERY_RESULT_BACKEND = 'django-db'
+CELERY_TIME_ZONE = 'Europe/Moscow'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
