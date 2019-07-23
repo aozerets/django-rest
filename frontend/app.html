@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar__nav" id="loginNav">LOGIN</div>
+        <div class="navbar__nav" id="registerNav">SIGN UP</div>
+    </div>
+    <div class="container" id="registerContainer">
+        <h1>Thank you for registering!</h1>
+        <h2>Just fill out the registration form.</h2>
+        <form class="container__form" action="#" name="registrationForm" enctype="multipart/form-data">
+            <div class="container__item">
+                <label for="username">Username:  </label><input type="text" name="username" id="username">
+            </div>
+            <h4 class="container__error" id="usernameError" hidden></h4>
+            <div class="container__item">
+                <label for="password1">Password:  </label><input type="password" name="password1" id="password1">
+            </div>
+            <div class="container__item">
+                <label for="password2">Confirm password:  </label><input type="password" name="password2" id="password2">
+            </div>
+            <h4 class="container__error" id="password1Error" hidden></h4>
+            <div class="container__item">
+                <label for="email">Email:  </label><input type="text" name="email" id="email">
+            </div>
+            <h4 class="container__error" id="emailError" hidden></h4>
+            <button class="container__btnReg" type="submit" id="btnRegister">Sign Up</button>
+        </form>
+    </div>
+    <div class="container" id="loginContainer" hidden>
+        <div class="jumbotron">
+            <h1>Authorization</h1>
+            <h2 id="loginError" class="container__error" hidden>Wrong!</h2>
+            <form class="container__form container--login" action="#" name="loginForm" enctype="multipart/form-data">
+                <input class="container__loginItem" type="text" name="username" placeholder="login">
+                <input class="container__loginItem" type="text" name="password" placeholder="password">
+                <button class="container__btnLogin" type="submit" id="btnLogin">Confirm</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -13,7 +13,7 @@ To run App u must go to the folder ".../src/courses" and execute the following c
 /path/to/src/courses>>>python manage.py createsuperuser
 /path/to/src/courses>>>python manage.py runserver
 ```
-After successfully launching your app, u will see something like this in your console:<br>
+After successfully launching your server, u will see something like this in your console:<br>
 ![running](https://github.com/aozerets/django-rest/blob/master/share/images/courses_init.jpg)<br>
 Available urls:<br>
 "", "/api/v1/users/"         -  POST<br>

@@ -20,6 +20,10 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'debug_toolbar',
     'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
     'main',
     'programs',
     'courses',
@@ -103,17 +107,18 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-LOGIN_REDIRECT_URL = 'home'
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'server@gmail.com'
-EMAIL_HOST_PASSWORD = 'server password'
+EMAIL_HOST_USER = 'ozerets21@gmail.com'
+EMAIL_HOST_PASSWORD = '1986ozerets#21'
 EMAIL_PORT = 587
 
-BROKER_URL = 'redis://localhost:6379/0'
+BROKER_URL = 'redis://192.168.101.167:6379/0'
 BROKER_TRANSPRT = 'redis'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'

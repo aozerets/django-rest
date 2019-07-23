@@ -1,0 +1,56 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+  margin: 5em 0 0 40%;
+  &__nav {
+    cursor: pointer;
+  }
+}
+button {
+  display: flex;
+  justify-content: center;
+  margin: .5em auto;
+  cursor: pointer;
+}
+.container {
+  text-align: center;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 20em;
+    margin: 1em auto;
+    justify-content: center;
+  }
+  &--login {
+    width: 15em;
+  }
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    margin: .3em .3em;
+  }
+  &__loginItem {
+    text-align: center;
+    margin: .5em .5em;
+  }
+  &__btnReg {
+    width: 20%;
+  }
+  &__btnLogin {
+    width: 30%;
+  }
+  &__error {
+    margin: 0 1em;
+    text-align: center;
+    word-break: break-word;
+    color: red;
+  }
+  h2 {
+    &__error {
+      text-align: center;
+      color: red;
+      font-weight: bold;
+    }
+  }
+}
