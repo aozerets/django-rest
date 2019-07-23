@@ -5,7 +5,7 @@ from courses.celery import app
 @app.task(max_retries=3)
 def send_mail(subject, client, text_content=None, html_content=None):
     try:
-        from_mail = 'ozerets21@gmail.com' #this can be set in settings
+        from_mail = 'server@gmail.com' #this can be set in settings
         msg = EmailMultiAlternatives(subject, text_content, from_mail, [client])
         msg.attach_alternative(html_content, "text/html")
         out = msg.send()

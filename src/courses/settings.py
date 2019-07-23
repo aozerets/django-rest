@@ -114,8 +114,8 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'ozerets21@gmail.com'
-EMAIL_HOST_PASSWORD = '1986ozerets#21'
+EMAIL_HOST_USER = 'server21@gmail.com'
+EMAIL_HOST_PASSWORD = 'password'
 EMAIL_PORT = 587
 
 BROKER_URL = 'redis://192.168.101.167:6379/0'
