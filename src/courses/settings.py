@@ -114,11 +114,11 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'server21@gmail.com'
+EMAIL_HOST_USER = 'server@gmail.com'
 EMAIL_HOST_PASSWORD = 'password'
 EMAIL_PORT = 587
 
-BROKER_URL = 'redis://192.168.101.167:6379/0'
+BROKER_URL = 'redis://localhost:6379/0'
 BROKER_TRANSPRT = 'redis'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
