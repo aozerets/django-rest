@@ -7,14 +7,10 @@
     cursor: pointer;
   }
 }
-button {
-  display: flex;
-  justify-content: center;
-  margin: .5em auto;
-  cursor: pointer;
-}
+
 .container {
   text-align: center;
+
   &__form {
     display: flex;
     flex-direction: column;
@@ -22,29 +18,26 @@ button {
     margin: 1em auto;
     justify-content: center;
   }
-  &--login {
-    width: 15em;
-  }
   &__item {
     display: flex;
     justify-content: space-between;
     margin: .3em .3em;
   }
-  &__loginItem {
-    text-align: center;
-    margin: .5em .5em;
-  }
   &__btnReg {
     width: 20%;
-  }
-  &__btnLogin {
-    width: 30%;
+    display: flex;
+    justify-content: center;
+    margin: .5em auto;
+    cursor: pointer;
   }
   &__error {
     margin: 0 1em;
     text-align: center;
     word-break: break-word;
     color: red;
+  }
+  &__hide {
+    display: none;
   }
   h2 {
     &__error {

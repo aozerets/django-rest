@@ -1,0 +1,26 @@
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-animation: marquee 20s linear infinite;
+  animation: marquee 20s linear infinite;
+  margin: 0 auto;
+  text-align: center;
+  color: #F5F5F5;
+  &:hover {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+}
+.words {
+  opacity: 0;
+  animation-delay: 1.4s;
+}
+
+@-webkit-keyframes marquee {
+  from { text-indent: 100%; }
+  to { text-indent: -100%; }
+}
+@keyframes marquee {
+  from { opacity: 1;text-indent: 100%; }
+  to { opacity: 1;text-indent: -100%; }
+}
