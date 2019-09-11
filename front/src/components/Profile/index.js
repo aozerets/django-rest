@@ -57,6 +57,9 @@ class Profile extends React.Component {
         }
         this.setState({...newState});
       })
+      .catch((e) => {
+        console.log(e);
+      });
   }
   
   dateInput = ({onClick}) => (

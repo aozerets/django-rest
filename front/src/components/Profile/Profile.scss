@@ -70,7 +70,7 @@
     text-align: center;
     font-family: 'Roboto', 'Poppins', sans-serif;
     width: 40%;
-    height: 1.2em;
+    height: 1.4em;
     border: 1px;
     box-shadow: 0 0 8px 1px #F5F5F5;
     opacity: .8;
@@ -78,6 +78,9 @@
     transform: scale(1.4);
     &:hover {
       background-color: darken(#C864FF, 30%);
+    }
+    &::-webkit-input-placeholder {
+      color: #fff;
     }
   }
   &__error--server {
