@@ -5,8 +5,6 @@ import './SignCourseForm.scss';
 class SignCourseForm extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.handleSignCourse = this.handleSignCourse.bind(this);
   };
   
   handleSignCourse = () => {
@@ -16,8 +14,9 @@ class SignCourseForm extends React.Component {
   };
   
   render() {
+    const { isOpen } = this.props;
     return (
-      <div id="myModal" className={this.props.isOpen ? "modal__show" : "modal"}>
+      <div id="myModal" className={isOpen ? "modal__show" : "modal"}>
         <div className="modal__content">
           <div className="modal__header">
             <span className="modal__close" id="close" onClick={this.handleSignCourse}>&times;</span>

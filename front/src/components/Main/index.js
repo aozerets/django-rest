@@ -25,7 +25,6 @@ class Main extends React.Component {
   }
   
   updatePips = () => {
-    // Update the classes on the pips depending on the current indices
     const prev = document.getElementById('carousel__pips').querySelector('.previous');
     if (prev != null)
       prev.classList.remove('previous');
@@ -42,9 +41,7 @@ class Main extends React.Component {
   };
   
   setLeftClass = () => {
-    // For when we want the item to appear from the left side if it's "earlier" in the list
     const allQuotes = document.getElementById('carousel__list').querySelectorAll('.teachers');
-    // Clear any previous "left" item
     const left = document.querySelector('.teachers.left');
     if (left != null)
       left.classList.remove('left');
@@ -52,13 +49,11 @@ class Main extends React.Component {
       const index = this.state.prevIndex - 1;
       allQuotes[index].classList.add('left');
     } else {
-      // It's the first item, so add "left" to the last in the list
       allQuotes[allQuotes.length - 1].classList.add('left');
     }
   };
   
   generatePips = () => {
-    // Add pips to the ul element in index.html
     const listContainer = document.getElementById('carousel__pips').querySelector('ul');
     for (let i = this.state.lastIndex; i >= 0; i--) {
       const newPip = '<li class="pip"</li>';
@@ -72,7 +67,6 @@ class Main extends React.Component {
   };
   
   updateCarouselPosition = () => {
-    // Remove any previous, current, next classes
     const prev = document.getElementById('carousel__list').querySelector('.previous');
     if (prev != null)
       prev.classList.remove('previous');
@@ -107,7 +101,6 @@ class Main extends React.Component {
     const index = teachers.indexOf(target);
     this.updateStatus(index);
     
-    // Since this is by click, pause the automatic movement for a few seconds
     clearTimeout(this.state.carouselRestartTimeout);
     this.setState({
       carouselRunning: false,
@@ -118,22 +111,19 @@ class Main extends React.Component {
   };
   
   showNextQuote = () => {
-    // Calculate the indices needed to show the next quote
     this.setState({
       currentIndex: this.state.currentIndex === this.state.lastIndex ? 0 : ++this.state.currentIndex
     });
     this.updateStatus(this.state.currentIndex);
   };
 
-  // Set the carousel working
   interval = () => setInterval(() => {
     if (this.state.carouselRunning) {
       this.showNextQuote();
     }
   }, 4000);
   
-  showFromPip = (ev) => {
-    // Helper for when someone clicks a pip
+  showFromPip = ev => {
     const pips = Array.from(document.querySelectorAll('.pip'));
     const pIndex = pips.indexOf(ev.currentTarget);
     this.updateStatus(pIndex);

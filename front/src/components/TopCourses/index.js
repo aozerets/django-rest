@@ -1,18 +1,19 @@
 import React from 'react';
+import SignCourseForm from "../Forms/SignCourseForm/";
 import './TopCourses.scss';
 import '../../main.scss';
-import SignCourseForm from "../Forms/SignCourseForm/SignCourseForm";
 
 class TopCourses extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     
     this.state = {
+      isCoursesVisible: true,
       isSignCourseOpen: false
     };
   }
   
-  highlightOption = (ev) => {
+  highlightOption = ev => {
     if (ev.type === 'mouseenter') {
       ev.currentTarget.classList.add('highlighted')
     } else {
@@ -27,8 +28,9 @@ class TopCourses extends React.Component {
   };
   
   render() {
+    const { isSignCourseOpen } = this.state;
     return (
-      <div className="header__content">
+      <div className="header__content hide">
         <h1 className="header__title animate-pop-in">Awesome online-courses from professionals</h1>
         <h3 className="header__subtitle animate-pop-in">A useful start for your web development</h3>
         <div className="header__course-flex animate-pop-in">
@@ -52,7 +54,7 @@ class TopCourses extends React.Component {
           </div>
         </div>
   
-        <SignCourseForm isOpen={this.state.isSignCourseOpen} handleToggle={this.toggleSignCourse}/>
+        <SignCourseForm isOpen={isSignCourseOpen} handleToggle={this.toggleSignCourse}/>
       </div>
     );
   }

@@ -1,0 +1,99 @@
+[type="file"] {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+[type="file"] + label {
+  position: relative;
+  transition: all 0.3s;
+  vertical-align: middle;
+  cursor: pointer;
+
+  &.avatar {
+    top: 1em;
+    left: 30%;
+    width: 40%;
+    height: 1.2em;
+    font-size: medium;
+    border: 1px;
+    box-shadow: 0 0 8px 1px #F5F5F5;
+    opacity: .8;
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4);
+    font-family: 'Roboto', 'Poppins', sans-serif;
+    background-color: #C864FF;
+    border-radius: 50px;
+    overflow: hidden;
+    &:hover {
+      background-color: darken(#C864FF, 30%);
+    }
+  }
+}
+.profile {
+  color: #F5F5F5;
+  text-align: center;
+  &__flexible {
+    display: flex;
+  }
+  &__blocked {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 30em;
+    margin: 1em auto;
+    justify-content: center;
+  }
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    margin: .3em .3em;
+    text-align: center;
+  }
+  &__avatar {
+    margin: 2em auto;
+    width: 10em;
+  }
+  &__date--input {
+    justify-content: center;
+    cursor: pointer;
+    background: #C864FF;
+    border-radius: 1.2rem;
+    color: #fff;
+    display: flex;
+    padding: 0;
+    margin: 1em auto;
+    text-align: center;
+    font-family: 'Roboto', 'Poppins', sans-serif;
+    width: 40%;
+    height: 1.2em;
+    border: 1px;
+    box-shadow: 0 0 8px 1px #F5F5F5;
+    opacity: .8;
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4);
+    &:hover {
+      background-color: darken(#C864FF, 30%);
+    }
+  }
+  &__error--server {
+    margin: 0 1em;
+    text-align: center;
+    word-break: break-word;
+    color: red;
+  }
+  &__hide {
+    display: none;
+  }
+  h2 {
+    &__error {
+      text-align: center;
+      color: red;
+      font-weight: bold;
+    }
+  }
+}

@@ -33,7 +33,7 @@
   &__link:hover {
     color: #C864FF;
   }
-  &__login-button {
+  &__button {
     margin: .5em .5em;
     background: #F5F5F5;
     border-radius: .8rem;
@@ -41,7 +41,7 @@
     padding: .5em .5em;
     cursor: pointer;
   }
-  &__login-button:hover {
+  &__button:hover {
     background: #C864FF;
     color: #fff;
     border: 1px;

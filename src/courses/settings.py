@@ -107,6 +107,8 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR) + '/front/src/public/image')
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'

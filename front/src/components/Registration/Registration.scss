@@ -1,13 +1,3 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  width: 20%;
-  margin: 5em 0 0 40%;
-  &__nav {
-    cursor: pointer;
-  }
-}
-
 .container {
   text-align: center;
 
@@ -23,12 +13,12 @@
     justify-content: space-between;
     margin: .3em .3em;
   }
-  &__btnReg {
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    margin: .5em auto;
-    cursor: pointer;
+  &__action {
+    display: inline-block;
+    margin: 1em auto;
+    -webkit-transform: scale(.2);
+    transform: scale(.2);
+    color: #000;
   }
   &__error {
     margin: 0 1em;

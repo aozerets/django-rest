@@ -8,6 +8,7 @@ class HeaderTitle extends React.Component {
   };
   
   render() {
+    const { isVisible, togglePage } = this.props;
     return (
       <div className="header__main">
         <div className="header__container flex-grid">
@@ -22,10 +23,13 @@ class HeaderTitle extends React.Component {
             Exercises
           </div>
         </div>
-        <div className="header__login-button" id="header__login-button" onClick={this.props.toggleLogin}>
+        <div className="header__button" id="header__profile-button" onClick={() => isVisible !== 'profile' ? togglePage('profile') : togglePage('topcourses')}>
+          Profile
+        </div>
+        <div className="header__button" id="header__login-button" onClick={() => isVisible !== 'login' ? togglePage('login') : togglePage('topcourses')}>
           Login
         </div>
-        <div className="header__login-button" id="header__registration-button" onClick={this.props.toggleRegistration}>
+        <div className="header__button" id="header__registration-button" onClick={() => isVisible !== 'registration' ? togglePage('registration') : togglePage('topcourses')}>
           SignUp
         </div>
   
