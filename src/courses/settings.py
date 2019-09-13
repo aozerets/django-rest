@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'courses.stats.StatsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -128,3 +129,10 @@ CELERY_RESULT_SERIALIZER = 'json'
 #CELERY_RESULT_BACKEND = 'django-db'
 CELERY_TIME_ZONE = 'Europe/Moscow'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+INFLUXDB_HOST = 'localhost'
+INFLUXDB_PORT = 8086
+INFLUXDB_USERNAME = None
+INFLUXDB_PASSWORD = None
+INFLUXDB_DATABASE = 'stats'
+INFLUXDB_TIMEOUT = 10

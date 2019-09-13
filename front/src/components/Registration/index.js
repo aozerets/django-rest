@@ -1,7 +1,9 @@
 import React from 'react';
 import '../../main.scss';
 import './Registration.scss';
-import { getCookie2 } from "../Utils";
+import { Fetch } from "../Utils";
+import { togglePage } from "../../actions";
+import { connect } from "react-redux";
 
 class Registration extends React.Component {
   constructor(props) {
@@ -16,19 +18,15 @@ class Registration extends React.Component {
   
   handleChange = ev => this.setState({ [ev.target.name] : ev.target.value });
   
-  handleRegistration = ev => {
+  signUp = ev => {
     ev.preventDefault();
     const formData = new FormData(ev.currentTarget);
-  
-    fetch('/rest-auth/registration/', {
-      method: 'POST',
-      headers: {'X-CSRFToken': getCookie2()},
-      body: formData
-    }).then(response => response.json())
+    Fetch('/rest-auth/registration/', 'POST', formData)
       .then(res => {
         if ('key' in res) {
           document.getElementById('registerContainer').setAttribute('hidden', 'true');
-          this.props.togglePage('topcourses');
+          alert('Congratulations!You are successfully registered.');
+          this.props.togglePage();
         } else {
           Object.entries(res).forEach((er) =>{
             document.getElementById(`${er[0]}Error`).removeAttribute('hidden');
@@ -39,7 +37,7 @@ class Registration extends React.Component {
           });
         }
       });
-  };
+    };
   
   render() {
     const { username, password1, password2, email} = this.state;
@@ -47,7 +45,7 @@ class Registration extends React.Component {
       <div className="container" id="registerContainer">
         <h1>Thank you for registering!</h1>
         <h2>Just fill out the registration form.</h2>
-        <form className="container__form" onSubmit={this.handleRegistration} name="registrationForm" >
+        <form className="container__form" onSubmit={this.signUp} name="registrationForm" >
           <div className="container__item">
             <label htmlFor="username">Username: </label><input type="text" name="username" id="username" placeholder="name" value={username} onChange={this.handleChange} />
           </div>
@@ -70,5 +68,9 @@ class Registration extends React.Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => ({
+  togglePage: () => { dispatch(togglePage()) }
+});
+const RegistrationContainer = connect(null, mapDispatchToProps)(Registration);
 
-export default Registration;
+export default RegistrationContainer;

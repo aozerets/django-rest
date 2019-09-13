@@ -87,7 +87,9 @@
     text-align: center;
     width: 10rem;
     &:hover {
-      color: #000;
+      text-decoration: none;
+      background-color: darken(#C864FF, 30%);
+      //color: #000;
     }
   }
 }

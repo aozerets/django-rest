@@ -1,7 +1,9 @@
 import React from 'react';
-import { getCookie2, handleErrors } from '../Utils';
+import {Fetch} from '../Utils';
 import '../../main.scss';
 import './Login.scss';
+import { togglePage } from "../../actions";
+import {connect} from "react-redux";
 
 class Login extends React.Component {
   constructor(props) {
@@ -15,21 +17,20 @@ class Login extends React.Component {
   handleLogin = ev => {
     ev.preventDefault();
     const formData = new FormData(ev.currentTarget);
-    fetch('/rest-auth/login/', {
-      method: 'POST',
-      headers: {'X-CSRFToken': getCookie2()},
-      body: formData
-    }).then(handleErrors)
-      .then(() => this.props.togglePage('topcourses'))
-      .catch(() => {
-        const logErr = document.getElementById('loginError');
-        if (logErr !== null) {
-          logErr.removeAttribute('hidden');
-          setTimeout(() => {
-            document.getElementById('loginError').setAttribute('hidden', 'true');
-          }, 3000);
-        }
-      });
+    Fetch('/rest-auth/login/', 'POST', formData)
+      .then(() => console.log('logging'))
+      .then(() => this.props.togglePage())
+      // .then(() => console.log('After'))
+      // .catch(() => {
+      //   console.log('some error');
+      //   const logErr = document.getElementById('loginError');
+      //   if (logErr !== null) {
+      //     logErr.removeAttribute('hidden');
+      //     setTimeout(() => {
+      //       document.getElementById('loginError').setAttribute('hidden', 'true');
+      //     }, 3000);
+      //   }
+      // });
   };
   
   handleChange = ev => this.setState({ [ev.target.name]: ev.target.value });
@@ -51,5 +52,10 @@ class Login extends React.Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => ({
+  togglePage: () => dispatch(togglePage())
+});
 
-export default Login;
+const LoginContainer = connect(null, mapDispatchToProps)(Login);
+
+export default LoginContainer;

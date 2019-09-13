@@ -1,9 +1,11 @@
 import React from 'react';
 import DatePicker from "react-datepicker";
-import { getCookie2, handleErrors } from "../Utils";
+import { Fetch } from "../Utils";
 import '../../main.scss';
 import './Profile.scss';
 import "react-datepicker/dist/react-datepicker.css";
+import {togglePage} from "../../actions";
+import {connect} from "react-redux";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -27,12 +29,11 @@ class Profile extends React.Component {
   handleProfile = ev => {
     ev.preventDefault();
     const formData = new FormData(ev.currentTarget);
-    fetch('/api/v1/profile/', {
-      method: 'PUT',
-      headers: {'X-CSRFToken': getCookie2()},
-      body: formData
-    }).then(handleErrors)
-      .then(() => this.props.togglePage('topcourses'))
+    Fetch('/api/v1/profile/', 'PUT', formData)
+      .then(() => this.props.togglePage())
+      .catch((e) => {
+        e.then(e => alert(e))
+      })
   };
   
   handleChange = ev => this.setState({ [ev.target.name]: ev.target.value });
@@ -44,11 +45,7 @@ class Profile extends React.Component {
   };
   
   componentDidMount() {
-    fetch('/api/v1/profile/', {
-      method: 'GET',
-      headers: {'X-CSRFToken': getCookie2()},
-    }).then(handleErrors)
-      .then(res => res.json())
+    Fetch('/api/v1/profile/', 'GET')
       .then(res => {
         const newState = {};
         Object.keys(res).map((key) => (res[key] == null) ? newState[key] = '' : newState[key] = res[key] );
@@ -59,6 +56,7 @@ class Profile extends React.Component {
       })
       .catch((e) => {
         console.log(e);
+        alert(e);
       });
   }
   
@@ -126,5 +124,9 @@ class Profile extends React.Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => ({
+  togglePage: () => { dispatch(togglePage()) }
+});
+const ProfileContainer = connect(null, mapDispatchToProps)(Profile);
 
-export default Profile;
+export default ProfileContainer;

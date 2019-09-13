@@ -57,6 +57,9 @@
   &__avatar {
     margin: 2em auto;
     width: 10em;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.5) inset;
+    height: 10em;
   }
   &__date--input {
     justify-content: center;

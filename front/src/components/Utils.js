@@ -10,7 +10,17 @@ export const getCookie2 = () => {
 
 export const handleErrors = res => {
   if (!res.ok) {
-    throw Error(res.statusText);
+    throw res.json();
   }
   return res;
 };
+
+export const Fetch = (url, method='GET', formData=null, headers=null) => {
+  return fetch(url, {
+    method: method,
+    headers: {'X-CSRFToken': getCookie2(), ...headers},
+    body: formData
+  }).then(handleErrors)
+    .then(res => res.json())
+};
+

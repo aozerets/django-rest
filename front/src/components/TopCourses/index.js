@@ -2,6 +2,8 @@ import React from 'react';
 import SignCourseForm from "../Forms/SignCourseForm/";
 import './TopCourses.scss';
 import '../../main.scss';
+import {togglePage} from "../../actions";
+import {connect} from "react-redux";
 
 class TopCourses extends React.Component {
   constructor(props){

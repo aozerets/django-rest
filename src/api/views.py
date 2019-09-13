@@ -29,8 +29,11 @@ class UserProfileDetail(RetrieveUpdateDestroyAPIView):
 
 class UpdateUserProfile(RetrieveUpdateDestroyAPIView):
     def get(self, request, *args, **kwargs):
-        profile = UserProfile.objects.get(user=request.user)
-        result = UserProfileSerializer(profile).data
+        print(request.user)
+        profile = UserProfile.objects.get_or_create(user=request.user)
+        print(profile)
+        result = UserProfileSerializer(profile[0]).data
+        print(result)
         return Response(result)
 
     def put(self, request, *args, **kwargs):

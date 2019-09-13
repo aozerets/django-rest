@@ -48,9 +48,12 @@ class UserForm(forms.ModelForm):
         password_validation.validate_password(password2, user)
         user.set_password(self.cleaned_data.get('password2'))
         if commit:
-            user.save()
+            out = user.save()
+            print(out)
             user_profile = UserProfile(user=user)
-            user_profile.save()
+            print(user_profile)
+            out = user_profile.save()
+            print(out)
             sub = "Awesome registration"
             text_content = "Greetings! Glad to see u in our Programs"
             send_mail.delay(sub, self.cleaned_data.get("email"), text_content)

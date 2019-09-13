@@ -1,46 +1,50 @@
 import React from 'react';
-import HeaderTitle from '../HeaderTitle';
+import { connect } from 'react-redux'
+
+import HeaderTitleContainer from '../HeaderTitle';
 import TopCourses from '../TopCourses';
-import Profile from '../Profile';
+import ProfileContainer from '../Profile';
 import News from '../News';
 import './Header.scss';
 import '../../main.scss';
-import Login from "../Login";
-import Registration from "../Registration";
+import LoginContainer from "../Login";
+import RegistrationContainer from "../Registration";
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-  
-    this.state = {
-      isVisible: 'topcourses'
-    };
   }
-  
-  togglePage = page => this.setState({ isVisible: page });
   
   renderSwitch = name => {
     switch (name) {
       case 'profile':
-        return <Profile togglePage={this.togglePage}/>;
+        return <ProfileContainer />;
       case 'login':
-        return <Login togglePage={this.togglePage}/>;
+        return <LoginContainer />;
       case 'registration':
-        return <Registration togglePage={this.togglePage}/>;
+        return <RegistrationContainer />;
       case 'topcourses':
         return <TopCourses />;
     }
   };
   
   render() {
-    const { isVisible } = this.state;
+    const { isVisible, isCovered } = this.props;
     return (
-      <header className='header'>
-        <HeaderTitle isVisible={isVisible} togglePage={this.togglePage} />
+      <header className={`header ${isCovered ? 'covered' : ''}`}>
+        <HeaderTitleContainer {...this.props} />
         <News />
         {this.renderSwitch(isVisible)}
       </header>
     );
   }
 }
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    isVisible: state.isVisible,
+    isCovered: state.isCovered
+  }
+};
+const HeaderContainer = connect(mapStateToProps, null)(Header);
+
+export default HeaderContainer;

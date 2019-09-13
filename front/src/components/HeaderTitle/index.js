@@ -1,6 +1,8 @@
 import React from 'react';
 import './HeaderTitle.scss';
 import '../../main.scss';
+import { togglePage, toggleHeader } from '../../actions'
+import {connect} from "react-redux";
 
 class HeaderTitle extends React.Component {
   constructor(props){
@@ -8,13 +10,13 @@ class HeaderTitle extends React.Component {
   };
   
   render() {
-    const { isVisible, togglePage } = this.props;
+    const { isVisible, isCovered, togglePage, toggleHeader } = this.props;
     return (
       <div className="header__main">
         <div className="header__container flex-grid">
           <div className="header__company-logo"></div>
           <div className="header__item">
-            <a className="header__link" href="allprograms.html">Programs{String.fromCharCode(9661)}</a>
+            <a className="header__link" onClick={() => toggleHeader(isCovered)}>Programs{String.fromCharCode(9661)}</a>
           </div>
           <div className="header__item">
             <a className="header__link" href="alllessons.html">Lessons{String.fromCharCode(9661)}</a>
@@ -37,4 +39,18 @@ class HeaderTitle extends React.Component {
     );
   }
 }
-export default HeaderTitle;
+const mapStateToProps = (state) => {
+  return {
+    isVisible: state.isVisible
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    togglePage: (page) => dispatch(togglePage(page)),
+    toggleHeader: (status) => dispatch(toggleHeader(status))
+  };
+}
+const HeaderTitleContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderTitle);
+
+export default HeaderTitleContainer;
