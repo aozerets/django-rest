@@ -1,7 +1,7 @@
 import React from 'react';
 import './HeaderTitle.scss';
 import '../../main.scss';
-import { togglePage, toggleHeader } from '../../actions'
+import { togglePage, toggleHeader, toggleLessons, togglePrograms } from '../../actions'
 import {connect} from "react-redux";
 
 class HeaderTitle extends React.Component {
@@ -10,16 +10,16 @@ class HeaderTitle extends React.Component {
   };
   
   render() {
-    const { isVisible, isCovered, togglePage, toggleHeader } = this.props;
+    const { isVisible, isCovered, programsOpen, lessonsOpen, togglePage, toggleHeader, togglePrograms, toggleLessons } = this.props;
     return (
       <div className="header__main">
         <div className="header__container flex-grid">
-          <div className="header__company-logo"></div>
+          <div className="header__company-logo" onClick={() => toggleHeader()} />
           <div className="header__item">
-            <a className="header__link" onClick={() => toggleHeader(isCovered)}>Programs{String.fromCharCode(9661)}</a>
+            <a className="header__link" onClick={() => togglePrograms(programsOpen)}>Programs{String.fromCharCode(9661)}</a>
           </div>
           <div className="header__item">
-            <a className="header__link" href="alllessons.html">Lessons{String.fromCharCode(9661)}</a>
+            <a className="header__link" onClick={() => toggleLessons(lessonsOpen)}>Lessons{String.fromCharCode(9661)}</a>
           </div>
           <div className="header__item">
             Exercises
@@ -41,14 +41,18 @@ class HeaderTitle extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    isVisible: state.isVisible
+    isVisible: state.isVisible,
+    programsOpen: state.programsOpen,
+    lessonsOpen: state.lessonsOpen
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     togglePage: (page) => dispatch(togglePage(page)),
-    toggleHeader: (status) => dispatch(toggleHeader(status))
+    toggleHeader: () => dispatch(toggleHeader()),
+    togglePrograms: (status) => dispatch(togglePrograms(status)),
+    toggleLessons: (status) => dispatch(toggleLessons(status))
   };
 }
 const HeaderTitleContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderTitle);

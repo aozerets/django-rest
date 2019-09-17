@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../../main.scss';
 import './SignCourseForm.scss';
+import { toggleSignCourse } from "../../../actions";
+import {connect} from "react-redux";
 
 class SignCourseForm extends React.Component {
   constructor(props) {
@@ -8,15 +10,17 @@ class SignCourseForm extends React.Component {
   };
   
   handleSignCourse = () => {
-    this.props.handleToggle();
     alert("Congratulations!!!! U R signed");
     //event.preventDefault();
+    console.log("closing");
+    this.props.toggleSignCourse();
+    console.log('after');
   };
   
   render() {
-    const { isOpen } = this.props;
+    const { isSignCourseOpen } = this.props;
     return (
-      <div id="myModal" className={isOpen ? "modal__show" : "modal"}>
+      <div id="myModal" className={isSignCourseOpen ? "modal__show" : "modal"}>
         <div className="modal__content">
           <div className="modal__header">
             <span className="modal__close" id="close" onClick={this.handleSignCourse}>&times;</span>
@@ -34,4 +38,14 @@ class SignCourseForm extends React.Component {
     );
   }
 }
-export default SignCourseForm;
+const mapStateToProps = (state) => {
+  return {
+    isSignCourseOpen: state.isSignCourseOpen
+  }
+};
+const mapDispatchToProps = dispatch => ({
+  toggleSignCourse: () => { dispatch(toggleSignCourse()) }
+});
+const SignCourseFormContainer = connect(mapStateToProps, mapDispatchToProps)(SignCourseForm);
+
+export default SignCourseFormContainer;

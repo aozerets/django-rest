@@ -32,8 +32,10 @@
   }
   &__link:hover {
     color: #C864FF;
+    cursor: pointer;
   }
   &__button {
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
     margin: .5em .5em;
     background: #F5F5F5;
     border-radius: .8rem;

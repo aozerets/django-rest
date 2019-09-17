@@ -22,20 +22,24 @@ class Registration extends React.Component {
     ev.preventDefault();
     const formData = new FormData(ev.currentTarget);
     Fetch('/rest-auth/registration/', 'POST', formData)
-      .then(res => {
-        if ('key' in res) {
-          document.getElementById('registerContainer').setAttribute('hidden', 'true');
-          alert('Congratulations!You are successfully registered.');
-          this.props.togglePage();
-        } else {
+      .then(() => {
+        document.getElementById('registerContainer').setAttribute('hidden', 'true');
+        alert('Congratulations!You are successfully registered.');
+        this.props.togglePage();
+      })
+      .catch(res => {
+        res.then(res => {
           Object.entries(res).forEach((er) =>{
             document.getElementById(`${er[0]}Error`).removeAttribute('hidden');
             document.getElementById(`${er[0]}Error`).innerText = er[1].join('\n');
             setTimeout(() => {
-              document.getElementById(`${er[0]}Error`).setAttribute('hidden', 'true');
+              const errElement = document.getElementById(`${er[0]}Error`);
+              if (errElement != null) {
+                errElement.setAttribute('hidden', 'true');
+              }
             }, 9000);
           });
-        }
+        });
       });
     };
   

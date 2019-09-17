@@ -4,39 +4,33 @@ import { Fetch } from "../Utils";
 import '../../main.scss';
 import './Profile.scss';
 import "react-datepicker/dist/react-datepicker.css";
-import {togglePage} from "../../actions";
+import {getProfile, setProfile, togglePage} from "../../actions";
 import {connect} from "react-redux";
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    
     this.state = ({
-      username: '',
-      name: '',
-      surname: '',
-      country: '',
-      city: '',
-      phone: '',
-      company: '',
-      position: '',
-      birthDate: '',
-      student_programs: '',
-      user_avatar: ''
+      'name': '',
+      'surname': '',
+      'country': '',
+      'city': '',
+      'phone': '',
+      'company': '',
+      'position': '',
+      'birthDate': '',
+      'user_avatar': ''
     })
   }
   
   handleProfile = ev => {
     ev.preventDefault();
     const formData = new FormData(ev.currentTarget);
-    Fetch('/api/v1/profile/', 'PUT', formData)
-      .then(() => this.props.togglePage())
-      .catch((e) => {
-        e.then(e => alert(e))
-      })
+    this.props.setProfile(formData);
   };
   
   handleChange = ev => this.setState({ [ev.target.name]: ev.target.value });
+  //handleChange = ev => this.props.profile[ev.target.name] = ev.target.value;
   
   handleBirth = date => this.setState({ birthDate: date });
   
@@ -45,19 +39,10 @@ class Profile extends React.Component {
   };
   
   componentDidMount() {
-    Fetch('/api/v1/profile/', 'GET')
-      .then(res => {
-        const newState = {};
-        Object.keys(res).map((key) => (res[key] == null) ? newState[key] = '' : newState[key] = res[key] );
-        if (newState['birth_date']) {
-          newState['birthDate'] = new Date(newState['birth_date'])
-        }
-        this.setState({...newState});
-      })
-      .catch((e) => {
-        console.log(e);
-        alert(e);
-      });
+    this.props.getProfile();
+  }
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.setState({...nextProps.profile});
   }
   
   dateInput = ({onClick}) => (
@@ -66,7 +51,8 @@ class Profile extends React.Component {
   );
   
   render() {
-    const { name, surname, country, city, phone, company, position, birthDate, user_avatar} = this.state;
+    console.log(this.state);
+    const { name, surname, country, city, phone, company, position, birthDate, user_avatar } = this.state;
     return (
       <div className="profile">
         <h1>Personal Account</h1>
@@ -115,7 +101,7 @@ class Profile extends React.Component {
               <label>Set avatar: </label>
               <input type="file" name="user_avatar" id="user_avatar"/>
               <label className="avatar" htmlFor="user_avatar">choose... </label>
-              {user_avatar !== '' ? <img className='profile__avatar' src={ require('../../public/image' + user_avatar) } /> : ''}
+              {user_avatar !== '' ? <img className='profile__avatar' src={ user_avatar } /> : ''}
             </div>
           </div>
           <button className="btnAction" type="submit" id="btnProfile">Confirm</button>
@@ -124,9 +110,17 @@ class Profile extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    profile: state.profile
+  }
+};
 const mapDispatchToProps = dispatch => ({
-  togglePage: () => { dispatch(togglePage()) }
+  togglePage: () => dispatch(togglePage()),
+  getProfile: () => dispatch(getProfile()),
+  setProfile: (formData) => dispatch(setProfile(formData))
 });
-const ProfileContainer = connect(null, mapDispatchToProps)(Profile);
+
+const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 export default ProfileContainer;

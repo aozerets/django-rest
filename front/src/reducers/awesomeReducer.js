@@ -1,4 +1,21 @@
-const InitialState = {isVisible: 'topcourses', isCovered: false};
+const InitialState = {
+  isVisible: 'topcourses',
+  isCovered: false,
+  lessonsOpen: false,
+  programsOpen: false,
+  isSignCourseOpen: false,
+  profile: {
+    'name': '',
+    'surname': '',
+    'country': '',
+    'city': '',
+    'phone': '',
+    'company': '',
+    'position': '',
+    'birthDate': '',
+    'user_avatar': ''
+  }
+};
 
 function appReducer(state = InitialState, action) {
   console.log(action);
@@ -10,10 +27,52 @@ function appReducer(state = InitialState, action) {
         isCovered: false
       };
     }
-    case 'TOGGLE_COVERED_HEADER': {
+    case 'TOGGLE_HEADER': {
       return {
         ...state,
-        isCovered: !action.isCovered
+        isCovered: !state.isCovered,
+        programsOpen: false,
+        lessonsOpen: false
+      };
+    }
+    case 'TOGGLE_LESSONS': {
+      return {
+        ...state,
+        isCovered: !action.lessonsOpen,
+        lessonsOpen: !action.lessonsOpen,
+        programsOpen: false
+      };
+    }
+    case 'TOGGLE_PROGRAMS': {
+      return {
+        ...state,
+        isCovered: !action.programsOpen,
+        programsOpen: !action.programsOpen,
+        lessonsOpen: false
+      };
+    }
+    case 'TOGGLE_SIGN_ON_COURSE': {
+      return {
+        ...state,
+        isSignCourseOpen: !state.isSignCourseOpen
+      };
+    }
+    case 'GET_PROFILE': {
+      return {
+        ...state,
+        profile: action.profile
+      };
+    }
+    case 'SET_PROFILE': {
+      return {
+        ...state,
+        profile: action.profile
+      };
+    }
+    case 'ADD_PROFILE': {
+      return {
+        ...state,
+        profile: action.profile
       };
     }
     default:

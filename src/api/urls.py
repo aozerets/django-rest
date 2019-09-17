@@ -1,7 +1,9 @@
-from django.urls import path
+from django.urls import path, include
 from .views import ProgramsList, ProgramDetail, ExerciseDetail, ExercisesList, LessonDetail, LessonsList, UserProfilesList, UserProfileDetail, CreateUser, UpdateUserProfile
 
 urlpatterns = [
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('users/', CreateUser.as_view()),
     path('programs/', ProgramsList.as_view()),
     path('programs/<int:pk>', ProgramDetail.as_view()),

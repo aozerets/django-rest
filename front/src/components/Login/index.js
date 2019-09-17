@@ -18,19 +18,19 @@ class Login extends React.Component {
     ev.preventDefault();
     const formData = new FormData(ev.currentTarget);
     Fetch('/rest-auth/login/', 'POST', formData)
-      .then(() => console.log('logging'))
       .then(() => this.props.togglePage())
-      // .then(() => console.log('After'))
-      // .catch(() => {
-      //   console.log('some error');
-      //   const logErr = document.getElementById('loginError');
-      //   if (logErr !== null) {
-      //     logErr.removeAttribute('hidden');
-      //     setTimeout(() => {
-      //       document.getElementById('loginError').setAttribute('hidden', 'true');
-      //     }, 3000);
-      //   }
-      // });
+      .catch(() => {
+        const logErr = document.getElementById('loginError');
+        if (logErr !== null) {
+          logErr.removeAttribute('hidden');
+          setTimeout(() => {
+            const logErr = document.getElementById('loginError');
+            if (logErr !== null) {
+              logErr.setAttribute('hidden', 'true');
+            }
+          }, 3000);
+        }
+      });
   };
   
   handleChange = ev => this.setState({ [ev.target.name]: ev.target.value });

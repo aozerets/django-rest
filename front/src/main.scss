@@ -46,10 +46,6 @@ main {
   padding: 2em;
   position: relative;
 }
-.col:nth-child(n+1) {
-  margin: 0 1em;
-  padding: 1em;
-}
 .col.vertical-align {
   display: flex;
   justify-content: center;

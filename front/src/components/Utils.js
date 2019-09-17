@@ -16,7 +16,7 @@ export const handleErrors = res => {
 };
 
 export const Fetch = (url, method='GET', formData=null, headers=null) => {
-  return fetch(url, {
+  return fetch('/api/v1' + url, {
     method: method,
     headers: {'X-CSRFToken': getCookie2(), ...headers},
     body: formData

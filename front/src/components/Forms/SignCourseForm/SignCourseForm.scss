@@ -11,7 +11,7 @@
   background-color: rgba(0,0,0,0.4);
   &__show {
     display: block;
-    position: fixed;
+    position: absolute;
     z-index: 1;
     padding-top: 150px;
     left: 0;
