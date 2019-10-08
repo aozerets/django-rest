@@ -12,7 +12,7 @@ class Login extends React.Component {
       username: '',
       password: '',
     };
-  };
+  }
   
   handleLogin = ev => {
     ev.preventDefault();

@@ -12,11 +12,8 @@ class Programs extends React.Component {
     const { programsOpen } = this.props;
     return (
       <div className={'allprograms ' + (programsOpen ? '' : 'hide')}>
-        <h1 className="allprograms__title">Choose your destiny!!!</h1>
+        <h1 className="allprograms__title animate-pop-in">Choose your destiny!!!</h1>
         <div className="allprograms__container">
-          <CourseCard name="python" title="Python3" started="01.08.19" more="More Python"/>
-          <CourseCard name="js" title="JavaScript" started="01.08.19" more="More JavaScript"/>
-          <CourseCard name="kotlin" title="Kotlin" started="01.08.19" more="More Kotlin"/>
           <CourseCard name="python" title="Python3" started="01.08.19" more="More Python"/>
           <CourseCard name="js" title="JavaScript" started="01.08.19" more="More JavaScript"/>
           <CourseCard name="kotlin" title="Kotlin" started="01.08.19" more="More Kotlin"/>

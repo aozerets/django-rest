@@ -4,14 +4,14 @@ import '../../main.scss';
 import { toggleSignCourse } from "../../actions";
 import { connect } from "react-redux";
 
-class CourseCard extends React.Component {
+export class CourseCard extends React.Component {
   constructor(props) {
     super(props);
-  };
+  }
   
   highlightOption = (ev) => {
     if (ev.type === 'mouseenter') {
-      ev.currentTarget.classList.add('highlighted')
+      ev.currentTarget.classList.add('highlighted');
     } else {
       ev.currentTarget.classList.remove('highlighted');
     }
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleSignCourse: () => dispatch(toggleSignCourse())
   };
-}
+};
 const CourseCardContainer = connect(null, mapDispatchToProps)(CourseCard);
 
 export default CourseCardContainer;

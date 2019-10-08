@@ -10,7 +10,7 @@ def send_mail(subject, client, text_content=None, html_content=None):
         msg.attach_alternative(html_content, "text/html")
         out = msg.send()
         if out != 1:
-            raise Exception
+            raise Exception('Send mail error.')
     except Exception as e:
         num_retries = send_mail.request.retries
         seconds_to_wait = 3.0 ** num_retries

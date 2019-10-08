@@ -8,7 +8,7 @@ class Lessons extends React.Component {
     super(props);
   }
   
-  navSelect = (ev) => {
+  navSelect = ev => {
     const prevActive = document.querySelector('.navbar__item.active').classList;
     document.querySelectorAll(`.lessons__item.${prevActive.item(2)}`).forEach((e) => {
       e.classList.add('hide');
@@ -148,7 +148,7 @@ class Lessons extends React.Component {
                 <a href="#" className="lessons__link">
                   <div className="lessons__subtitle">Django REST Framework. Django Configurations.</div>
                 </a>
-                <div className="lessons__icon"></div>
+                <div className="lessons__icon"/>
               </div>
               <div className="lessons__content">
                 <div className="lessons__text">Date and Time</div>
@@ -164,7 +164,7 @@ class Lessons extends React.Component {
                 <a href="#" className="lessons__link">
                   <div className="lessons__subtitle">Django REST Framework. Django Configurations.</div>
                 </a>
-                <div className="lessons__icon"></div>
+                <div className="lessons__icon"/>
               </div>
               <div className="lessons__content">
                 <div className="lessons__text">Date and Time</div>
@@ -180,7 +180,7 @@ class Lessons extends React.Component {
                 <a href="#" className="lessons__link">
                   <div className="lessons__subtitle">Django REST Framework. Django Configurations.</div>
                 </a>
-                <div className="lessons__icon"></div>
+                <div className="lessons__icon"/>
               </div>
               <div className="lessons__content">
                 <div className="lessons__text">Date and Time</div>
@@ -196,7 +196,7 @@ class Lessons extends React.Component {
                 <a href="#" className="lessons__link">
                   <div className="lessons__subtitle">Django REST Framework. Django Configurations.</div>
                 </a>
-                <div className="lessons__icon"></div>
+                <div className="lessons__icon"/>
               </div>
             </div>
             <div className="lessons__item month-zero hide">

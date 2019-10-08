@@ -13,7 +13,8 @@
   transform-style: preserve3d;
   perspective: 100px;
   &:before {
-    animation: fade-slide-up 1s .3s cubic-bezier(0, 0.5, 0, 1) forwards;
+    //animation: fade-slide-up 1s .3s cubic-bezier(0, 0.5, 0, 1) forwards;
+    animation: fade-slide-down 2s .3s cubic-bezier(0, 0.5, 0, 1) forwards;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .4)),
     url(../../../src/public/image/Table.jpg) no-repeat top;
     background-size: cover;

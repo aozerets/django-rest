@@ -1,13 +1,12 @@
 import React from 'react';
 import DatePicker from "react-datepicker";
-import { Fetch } from "../Utils";
 import '../../main.scss';
 import './Profile.scss';
 import "react-datepicker/dist/react-datepicker.css";
 import {getProfile, setProfile, togglePage} from "../../actions";
 import {connect} from "react-redux";
 
-class Profile extends React.Component {
+export class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = ({
@@ -51,7 +50,6 @@ class Profile extends React.Component {
   );
   
   render() {
-    console.log(this.state);
     const { name, surname, country, city, phone, company, position, birthDate, user_avatar } = this.state;
     return (
       <div className="profile">

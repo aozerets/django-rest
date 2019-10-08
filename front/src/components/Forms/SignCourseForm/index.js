@@ -4,17 +4,14 @@ import './SignCourseForm.scss';
 import { toggleSignCourse } from "../../../actions";
 import {connect} from "react-redux";
 
-class SignCourseForm extends React.Component {
+export class SignCourseForm extends React.Component {
   constructor(props) {
     super(props);
-  };
+  }
   
   handleSignCourse = () => {
     alert("Congratulations!!!! U R signed");
-    //event.preventDefault();
-    console.log("closing");
     this.props.toggleSignCourse();
-    console.log('after');
   };
   
   render() {
