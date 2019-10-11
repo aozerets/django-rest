@@ -39,14 +39,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProgramSerializer(serializers.ModelSerializer):
-    lessons = serializers.StringRelatedField(many=True)
-
-    class Meta:
-        model = Program
-        fields = '__all__'
-
-
 class LessonSerializer(serializers.ModelSerializer):
     exercise = serializers.StringRelatedField()
     program = serializers.StringRelatedField()
@@ -65,3 +57,20 @@ class ExerciseSerializer(serializers.ModelSerializer):
         model = Exercise
         fields = '__all__'
 
+
+class ShortUserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    exercises = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = UserProfile
+        fields = ['id', 'user', 'exercises']
+
+
+class ProgramSerializer(serializers.ModelSerializer):
+    lessons = serializers.StringRelatedField(many=True)
+    students = ShortUserProfileSerializer(many=True)
+
+    class Meta:
+        model = Program
+        fields = '__all__'

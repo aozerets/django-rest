@@ -1,10 +1,13 @@
+from rest_framework.decorators import api_view
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, ListAPIView, \
+    get_object_or_404
 from django.contrib.auth.models import User
 from programs.models import Program, Lesson, Exercise
 from main.models import UserProfile
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
+from json import dumps
 
 from .serializers import ProgramSerializer, LessonSerializer, ExerciseSerializer, UserProfileSerializer, CreateUserSerializer
 
@@ -37,6 +40,7 @@ class UpdateUserProfile(RetrieveUpdateDestroyAPIView):
         if not request.user.is_authenticated:
             return Response({})
         else:
+            print(request.data)
             profile = UserProfile.objects.get(user=request.user)
             profile.name = request.data.get("name")
             profile.surname = request.data.get("surname")
@@ -47,6 +51,7 @@ class UpdateUserProfile(RetrieveUpdateDestroyAPIView):
             profile.position = request.data.get("position")
             profile.birth_date = request.data.get("birth_date")
             avatar = request.data.get("user_avatar")
+            print(avatar)
             if avatar:
                 main, sub = avatar.content_type.split('/')
                 if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
@@ -66,6 +71,27 @@ class ProgramsList(ListCreateAPIView):
 class ProgramDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = ProgramSerializer
     queryset = Program.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        # profile = UserProfile.objects.get_or_create(user=request.user)
+        # result = UserProfileSerializer(profile[0]).data
+        # return Response(result)
+        #queryset = self.filter_queryset(self.get_queryset())
+        # print(queryset)
+        #queryset = self.get_queryset()
+        #print(self.queryset)
+        result = self.serializer_class(get_object_or_404(self.queryset, pk=kwargs['pk']))
+        #print('-'*40)
+        #print(result)
+        # stu = list(result['students'])
+        # print(stu)
+        # [i['user'].add({"done": "13/25"}) for i in stu]
+        # print(stu)
+        # result['students'] = stu
+        #add your constant here
+        # final_response = serializer._data.copy()
+        # final_response["DISCOUNT"] = 210
+        return Response(result.data)
 
 
 class LessonsList(ListCreateAPIView):
@@ -87,3 +113,63 @@ class ExerciseDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = ExerciseSerializer
     queryset = Exercise.objects.all()
 
+mock = dumps([
+    {
+        "title": "CSS",
+        "lessons": 22,
+        "students": [
+            {
+                "username": "Joe",
+                "done": 20,
+                "email": "Joe@mail.ru"
+            },
+            {
+                "username": "Frog",
+                "done": 10,
+                "email": "Frog@mail.ru"
+            },
+            {
+                "username": "Fill",
+                "done": 11,
+                "email": "Fill@mail.ru"
+            },
+            {
+                "username": "Mouse",
+                "done": 1,
+                "email": "Mouse@mail.ru"
+            }
+        ]
+    },
+    {
+        "title": "Python",
+        "lessons": 32,
+        "students": [
+            {
+                "username": "Ioo",
+                "done": 30,
+                "email": "Ioo@mail.ru"
+            },
+            {
+                "username": "Flop",
+                "done": 11,
+                "email": "Flop@mail.ru"
+            },
+            {
+                "username": "Fill",
+                "done": 23,
+                "email": "Fill@mail.ru"
+            },
+            {
+                "username": "Man",
+                "done": 1,
+                "email": "Man@mail.ru"
+            }
+        ]
+    }
+])
+
+
+@api_view(['GET'])
+def grade_list(request):
+
+    return Response()

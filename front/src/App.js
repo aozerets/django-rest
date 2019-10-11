@@ -8,20 +8,23 @@ import HeaderContainer from './components/Header'
 import Main from './components/Main'
 import Footer from './components/Footer'
 import SignCourseFormContainer from "./components/Forms/SignCourseForm";
+import {BrowserRouter as Router} from "react-router-dom";
 
 const store = createStore(appReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 
 function App() {
   return (
-    <Provider store={store}>
-      <div className="App">
-        <HeaderContainer />
-        <Main />
-        <Footer />
-  
-        <SignCourseFormContainer />
-      </div>
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <div className="App">
+          <HeaderContainer />
+          <Main />
+          <Footer />
+    
+          <SignCourseFormContainer />
+        </div>
+      </Provider>
+    </Router>
   );
 }
 

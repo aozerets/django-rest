@@ -2,7 +2,7 @@ import React from 'react';
 import {Fetch} from '../Utils';
 import '../../main.scss';
 import './Login.scss';
-import { togglePage } from "../../actions";
+import {getProfile, togglePage} from "../../actions";
 import {connect} from "react-redux";
 
 class Login extends React.Component {
@@ -19,6 +19,7 @@ class Login extends React.Component {
     const formData = new FormData(ev.currentTarget);
     Fetch('/rest-auth/login/', 'POST', formData)
       .then(() => this.props.togglePage())
+      .then(() => this.props.getProfile())
       .catch(() => {
         const logErr = document.getElementById('loginError');
         if (logErr !== null) {
@@ -53,7 +54,8 @@ class Login extends React.Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  togglePage: () => dispatch(togglePage())
+  togglePage: () => dispatch(togglePage()),
+  getProfile: () => dispatch(getProfile()),
 });
 
 const LoginContainer = connect(null, mapDispatchToProps)(Login);

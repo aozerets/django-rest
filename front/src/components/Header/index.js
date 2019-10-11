@@ -16,6 +16,7 @@ class Header extends React.Component {
   }
   
   renderSwitch = name => {
+    console.log('switched');
     switch (name) {
       case 'profile':
         return <ProfileContainer />;

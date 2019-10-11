@@ -9,17 +9,18 @@ import {connect} from "react-redux";
 export class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({
-      'name': '',
-      'surname': '',
-      'country': '',
-      'city': '',
-      'phone': '',
-      'company': '',
-      'position': '',
-      'birthDate': '',
-      'user_avatar': ''
-    })
+    // this.state = ({
+    //   'name': '',
+    //   'surname': '',
+    //   'country': '',
+    //   'city': '',
+    //   'phone': '',
+    //   'company': '',
+    //   'position': '',
+    //   'birthDate': '',
+    //   'user_avatar': ''
+    // })
+    this.state = ({...props.profile});
   }
   
   handleProfile = ev => {
@@ -29,7 +30,6 @@ export class Profile extends React.Component {
   };
   
   handleChange = ev => this.setState({ [ev.target.name]: ev.target.value });
-  //handleChange = ev => this.props.profile[ev.target.name] = ev.target.value;
   
   handleBirth = date => this.setState({ birthDate: date });
   
@@ -37,12 +37,13 @@ export class Profile extends React.Component {
     console.log("switching");
   };
   
-  componentDidMount() {
-    this.props.getProfile();
-  }
-  componentWillReceiveProps(nextProps, nextContext) {
-    this.setState({...nextProps.profile});
-  }
+  
+  // componentDidMount() {
+  //   this.props.getProfile();
+  // }
+  // componentWillReceiveProps(nextProps, nextContext) {
+  //   this.setState({...nextProps.profile});
+  // }
   
   dateInput = ({onClick}) => (
     <input className="profile__date--input" onClick={onClick}>
@@ -50,6 +51,7 @@ export class Profile extends React.Component {
   );
   
   render() {
+    console.log(this.state);
     const { name, surname, country, city, phone, company, position, birthDate, user_avatar } = this.state;
     return (
       <div className="profile">
@@ -97,9 +99,9 @@ export class Profile extends React.Component {
                 customInput={this.dateInput(this)}
                 onChange={date => this.handleBirth(date) }/>
               <label>Set avatar: </label>
-              <input type="file" name="user_avatar" id="user_avatar"/>
+              <input type="file" name="user_avatar" id="user_avatar" onChange={this.handleChange} />
               <label className="avatar" htmlFor="user_avatar">choose... </label>
-              {user_avatar !== '' ? <img className='profile__avatar' src={ user_avatar } /> : ''}
+              {user_avatar !== '' ? <img className='profile__avatar' src={ user_avatar }/> : ''}
             </div>
           </div>
           <button className="btnAction" type="submit" id="btnProfile">Confirm</button>
@@ -115,8 +117,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => ({
   togglePage: () => dispatch(togglePage()),
-  getProfile: () => dispatch(getProfile()),
-  setProfile: (formData) => dispatch(setProfile(formData))
+  // getProfile: () => dispatch(getProfile()),
+  setProfile: (formData, profile) => dispatch(setProfile(formData, profile))
 });
 
 const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -3,27 +3,36 @@ import './HeaderTitle.scss';
 import '../../main.scss';
 import { togglePage, toggleHeader, toggleLessons, togglePrograms } from '../../actions'
 import {connect} from "react-redux";
+import { Link } from "react-router-dom";
 
 class HeaderTitle extends React.Component {
   constructor(props){
     super(props);
-  };
+  }
   
   render() {
-    const { isVisible, isCovered, programsOpen, lessonsOpen, togglePage, toggleHeader, togglePrograms, toggleLessons } = this.props;
+    console.log(this.props);
+    const { isVisible, isCovered, programsOpen, lessonsOpen, togglePage, toggleHeader, togglePrograms, toggleLessons, status } = this.props;
     return (
       <div className="header__main">
         <div className="header__container flex-grid">
           <div className="header__company-logo" onClick={() => toggleHeader()} />
           <div className="header__item">
-            <a className="header__link" onClick={() => togglePrograms(programsOpen)}>Programs{String.fromCharCode(9661)}</a>
+            <a className="header__link" onClick={() => togglePrograms(programsOpen)}><Link to="/programs">Programs{String.fromCharCode(9661)}</Link></a>
           </div>
           <div className="header__item">
-            <a className="header__link" onClick={() => toggleLessons(lessonsOpen)}>Lessons{String.fromCharCode(9661)}</a>
+            <a className="header__link" onClick={() => toggleLessons(lessonsOpen)}><Link to="/lessons">Lessons{String.fromCharCode(9661)}</Link></a>
           </div>
           <div className="header__item">
             Exercises
           </div>
+          { status === 'teacher'
+            ?
+            <div className="header__item">
+              <a className="header__link" onClick={() => toggleHeader()}><Link to="/gradebook">Gradebook{String.fromCharCode(9661)}</Link></a>
+            </div>
+            : ''
+          }
         </div>
         <div className="header__button" id="header__profile-button" onClick={() => isVisible !== 'profile' ? togglePage('profile') : togglePage('topcourses')}>
           Profile
@@ -34,7 +43,6 @@ class HeaderTitle extends React.Component {
         <div className="header__button" id="header__registration-button" onClick={() => isVisible !== 'registration' ? togglePage('registration') : togglePage('topcourses')}>
           SignUp
         </div>
-  
       </div>
     );
   }
@@ -43,7 +51,8 @@ const mapStateToProps = (state) => {
   return {
     isVisible: state.isVisible,
     programsOpen: state.programsOpen,
-    lessonsOpen: state.lessonsOpen
+    lessonsOpen: state.lessonsOpen,
+    status: 'status' in state.profile ? state.profile.status : 'student'
   }
 };
 

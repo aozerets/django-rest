@@ -2,6 +2,7 @@ import * as ActionTypes from './actionTypes';
 import {Fetch} from "../components/Utils";
 
 export const togglePage = page => {
+  console.log('toggling');
   return {
     type: ActionTypes.TOGGLE_PAGE,
     isVisible: page
@@ -49,9 +50,9 @@ export const getProfile = () => dispatch => {
     });
 };
 export const setProfile = formData => dispatch => {
-  console.log(formData);
   Fetch('/profile/', 'PUT', formData)
     .then(() => dispatch(togglePage()))
+    .then(() => dispatch(getProfile()))
     .catch((e) => {
       e.then(e => alert(e))
     })

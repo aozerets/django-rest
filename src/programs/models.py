@@ -31,8 +31,8 @@ class Exercise(models.Model):
     )
     name = models.CharField(max_length=30)
     status = models.CharField(max_length=10, choices=EX_STATUS)
-    lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE, blank=True, null=True)
-    assigned = models.ManyToManyField('main.UserProfile', blank=True)
+    lesson = models.ForeignKey(Lesson, blank=True, null=True, on_delete=models.CASCADE)
+    assigned = models.ForeignKey('main.UserProfile', related_name='exercises', blank=True, on_delete=models.CASCADE)
     verifier = models.ForeignKey('main.UserProfile', related_name='verifier', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
