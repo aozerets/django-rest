@@ -2,6 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class UserManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related('user')
+
+
 class UserProfile(models.Model):
     USER_STATUS = (
         ("admin", "admin"),
@@ -19,6 +24,7 @@ class UserProfile(models.Model):
     position = models.CharField(max_length=20, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     user_avatar = models.ImageField(blank=True, null=True)
+    objects = UserManager()
 
     def __str__(self):
         return self.user.username

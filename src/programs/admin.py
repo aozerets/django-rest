@@ -23,7 +23,46 @@ class ProgramAdmin(admin.ModelAdmin):
 
     def get_teacher_str(self, obj):
         return ", ".join([u.user.username for u in obj.teachers.all()])
-    get_student_str.short_description = 'Teachers'
+    get_teacher_str.short_description = 'Teachers'
+
+
+class ExerciseAdmin(admin.ModelAdmin):
+    list_display = ('id', 'get_program_str', 'lesson', 'status', 'assigned', 'verifier')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        prefetch_qs1 = UserProfile.objects.only('user').select_related('user')
+        prefetch1 = Prefetch('assigned', queryset=prefetch_qs1)
+        prefetch2 = Prefetch('verifier', queryset=prefetch_qs1)
+        # prefetch_qs3 = Lesson.objects.all().prefetch_related(prefetch3)
+        # prefetch4 = Prefetch('lesson', queryset=prefetch_qs3)
+        qs = qs.prefetch_related(prefetch1).prefetch_related(prefetch2)
+        return qs
+
+    def get_program_str(self, obj):
+        return obj.lesson.program.title
+    get_program_str.short_description = 'Program'
+
+
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ('id', 'get_program_str', 'name', 'day', 'get_teacher_str')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        prefetch_qs2 = UserProfile.objects.only('user').select_related('user')
+        prefetch2 = Prefetch('teachers', queryset=prefetch_qs2)
+        prefetch_qs1 = Program.objects.only('title', 'teachers').prefetch_related(prefetch2)
+        prefetch1 = Prefetch('program', queryset=prefetch_qs1)
+        qs = qs.prefetch_related(prefetch1)
+        return qs
+
+    def get_program_str(self, obj):
+        return obj.program.title
+    get_program_str.short_description = 'Program'
+
+    def get_teacher_str(self, obj):
+        return ", ".join([u.user.username for u in obj.program.teachers.all()])
+    get_teacher_str.short_description = 'Teachers'
 
 
 class CurrencyRateAdmin(admin.ModelAdmin):
@@ -46,6 +85,6 @@ class CurrencyRateAdmin(admin.ModelAdmin):
 
 admin.site.register(CurrencyRate, CurrencyRateAdmin)
 admin.site.register(Program, ProgramAdmin)
-admin.site.register(Exercise)
-admin.site.register(Lesson)
+admin.site.register(Exercise, ExerciseAdmin)
+admin.site.register(Lesson, LessonAdmin)
 

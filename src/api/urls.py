@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ProgramsList, ProgramDetail, ExerciseDetail, ExercisesList, LessonDetail, LessonsList, UserProfilesList, UserProfileDetail, CreateUser, UpdateUserProfile, grade_list
+from .views import ProgramsList, ProgramDetail, ExerciseDetail, ExercisesList, LessonDetail, LessonsList, UserProfilesList, UserProfileDetail, CreateUser, UpdateUserProfile
 
 urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),

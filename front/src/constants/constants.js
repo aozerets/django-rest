@@ -1,3 +1,27 @@
+export const InitialState = {
+  isVisible: 'topcourses',
+  isCovered: false,
+  lessonsOpen: false,
+  programsOpen: false,
+  gradebookOpen: false,
+  isSignCourseOpen: false,
+  profile: {
+    'name': '',
+    'surname': '',
+    'country': '',
+    'city': '',
+    'phone': '',
+    'company': '',
+    'position': '',
+    'birthDate': '',
+    'user_avatar': ''
+  },
+  gradebook: {
+    'grades': [],
+    'titles': []
+  }
+};
+
 export const Gradelist = [
   {
     "title": "CSS",

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Prefetch
 
 
 class Program(models.Model):
@@ -22,6 +23,13 @@ class Lesson(models.Model):
         return self.name
 
 
+class ExerciseManager(models.Manager):
+    def get_queryset(self):
+        prefetch_qs2 = Lesson.objects.all().select_related('program')
+        prefetch2 = Prefetch('lesson', queryset=prefetch_qs2)
+        return super().get_queryset().prefetch_related(prefetch2)
+
+
 class Exercise(models.Model):
     EX_STATUS = (
         ("done", 'done'),
@@ -29,14 +37,14 @@ class Exercise(models.Model):
         ("check", 'checking'),
         ("new", 'new'),
     )
-    name = models.CharField(max_length=30)
     status = models.CharField(max_length=10, choices=EX_STATUS)
     lesson = models.ForeignKey(Lesson, blank=True, null=True, on_delete=models.CASCADE)
     assigned = models.ForeignKey('main.UserProfile', related_name='exercises', blank=True, on_delete=models.CASCADE)
     verifier = models.ForeignKey('main.UserProfile', related_name='verifier', blank=True, null=True, on_delete=models.SET_NULL)
+    objects = ExerciseManager()
 
     def __str__(self):
-        return self.name
+        return self.lesson.name + "_exercise"
 
 
 class CurrencyRate(models.Model):

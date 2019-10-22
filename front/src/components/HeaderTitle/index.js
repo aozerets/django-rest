@@ -1,7 +1,7 @@
 import React from 'react';
 import './HeaderTitle.scss';
 import '../../main.scss';
-import { togglePage, toggleHeader, toggleLessons, togglePrograms } from '../../actions'
+import { togglePage, toggleHeader, toggleLessons, togglePrograms, toggleGradebook } from '../../actions'
 import {connect} from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -12,16 +12,16 @@ class HeaderTitle extends React.Component {
   
   render() {
     console.log(this.props);
-    const { isVisible, isCovered, programsOpen, lessonsOpen, togglePage, toggleHeader, togglePrograms, toggleLessons, status } = this.props;
+    const { isVisible, isCovered, programsOpen, lessonsOpen, gradebookOpen, togglePage, toggleHeader, togglePrograms, toggleLessons, toggleGradebook, status } = this.props;
     return (
       <div className="header__main">
         <div className="header__container flex-grid">
           <div className="header__company-logo" onClick={() => toggleHeader()} />
           <div className="header__item">
-            <a className="header__link" onClick={() => togglePrograms(programsOpen)}><Link to="/programs">Programs{String.fromCharCode(9661)}</Link></a>
+            <div onClick={() => togglePrograms(programsOpen)}><Link className="header__link" to="/programs">Programs{String.fromCharCode(9661)}</Link></div>
           </div>
           <div className="header__item">
-            <a className="header__link" onClick={() => toggleLessons(lessonsOpen)}><Link to="/lessons">Lessons{String.fromCharCode(9661)}</Link></a>
+            <div onClick={() => toggleLessons(lessonsOpen)}><Link className="header__link" to="/lessons">Lessons{String.fromCharCode(9661)}</Link></div>
           </div>
           <div className="header__item">
             Exercises
@@ -29,7 +29,7 @@ class HeaderTitle extends React.Component {
           { status === 'teacher'
             ?
             <div className="header__item">
-              <a className="header__link" onClick={() => toggleHeader()}><Link to="/gradebook">Gradebook{String.fromCharCode(9661)}</Link></a>
+              <div onClick={() => toggleGradebook(gradebookOpen)}><Link className="header__link" to="/gradebook">Gradebook{String.fromCharCode(9661)}</Link></div>
             </div>
             : ''
           }
@@ -52,6 +52,7 @@ const mapStateToProps = (state) => {
     isVisible: state.isVisible,
     programsOpen: state.programsOpen,
     lessonsOpen: state.lessonsOpen,
+    gradebookOpen: state.gradebookOpen,
     status: 'status' in state.profile ? state.profile.status : 'student'
   }
 };
@@ -61,7 +62,8 @@ const mapDispatchToProps = dispatch => {
     togglePage: (page) => dispatch(togglePage(page)),
     toggleHeader: () => dispatch(toggleHeader()),
     togglePrograms: (status) => dispatch(togglePrograms(status)),
-    toggleLessons: (status) => dispatch(toggleLessons(status))
+    toggleLessons: (status) => dispatch(toggleLessons(status)),
+    toggleGradebook: (status) => dispatch(toggleGradebook(status))
   };
 }
 const HeaderTitleContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderTitle);

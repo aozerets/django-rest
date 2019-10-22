@@ -1,21 +1,4 @@
-const InitialState = {
-  isVisible: 'topcourses',
-  isCovered: false,
-  lessonsOpen: false,
-  programsOpen: false,
-  isSignCourseOpen: false,
-  profile: {
-    'name': '',
-    'surname': '',
-    'country': '',
-    'city': '',
-    'phone': '',
-    'company': '',
-    'position': '',
-    'birthDate': '',
-    'user_avatar': ''
-  }
-};
+import { InitialState } from "../constants/constants";
 
 function appReducer(state = InitialState, action) {
   console.log(action);
@@ -24,7 +7,10 @@ function appReducer(state = InitialState, action) {
       return {
         ...state,
         isVisible: action.isVisible ? action.isVisible : 'topcourses',
-        isCovered: false
+        isCovered: false,
+        programsOpen: false,
+        lessonsOpen: false,
+        gradebookOpen: false
       };
     }
     case 'TOGGLE_HEADER': {
@@ -32,7 +18,8 @@ function appReducer(state = InitialState, action) {
         ...state,
         isCovered: !state.isCovered,
         programsOpen: false,
-        lessonsOpen: false
+        lessonsOpen: false,
+        gradebookOpen: false
       };
     }
     case 'TOGGLE_LESSONS': {
@@ -40,7 +27,8 @@ function appReducer(state = InitialState, action) {
         ...state,
         isCovered: !action.lessonsOpen,
         lessonsOpen: !action.lessonsOpen,
-        programsOpen: false
+        programsOpen: false,
+        gradebookOpen: false
       };
     }
     case 'TOGGLE_PROGRAMS': {
@@ -48,7 +36,17 @@ function appReducer(state = InitialState, action) {
         ...state,
         isCovered: !action.programsOpen,
         programsOpen: !action.programsOpen,
-        lessonsOpen: false
+        lessonsOpen: false,
+        gradebookOpen: false
+      };
+    }
+    case 'TOGGLE_GRADEBOOK': {
+      return {
+        ...state,
+        isCovered: !action.gradebookOpen,
+        gradebookOpen: !action.gradebookOpen,
+        lessonsOpen: false,
+        programsOpen: false
       };
     }
     case 'TOGGLE_SIGN_ON_COURSE': {
@@ -60,7 +58,10 @@ function appReducer(state = InitialState, action) {
     case 'GET_PROFILE': {
       return {
         ...state,
-        profile: action.profile
+        profile: action.profile,
+        programsOpen: false,
+        lessonsOpen: false,
+        gradebookOpen: false
       };
     }
     case 'SET_PROFILE': {
@@ -73,6 +74,12 @@ function appReducer(state = InitialState, action) {
       return {
         ...state,
         profile: action.profile
+      };
+    }
+    case 'ADD_GRADEBOOK': {
+      return {
+        ...state,
+        gradebook: action.gradebook
       };
     }
     default:

@@ -29,10 +29,40 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("username", "email")
 
 
+class ShortExerciseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Exercise
+        fields = ['id', 'status']
+
+
+class ShortUserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    #exercises = ShortExerciseSerializer(many=True)#serializers.StringRelatedField(many=True)
+    done_count = serializers.SerializerMethodField()
+
+    def get_done_count(self, obj):
+        return str(obj.exercises.filter(status='done').count()) + '/' + str(obj.exercises.count())
+
+    class Meta:
+        model = UserProfile
+        depth = 1
+        fields = ['id', 'user', 'done_count']
+
+
+class ProgramSerializer(serializers.ModelSerializer):
+    lessons = serializers.StringRelatedField(many=True)
+    students = ShortUserProfileSerializer(many=True)
+
+    class Meta:
+        model = Program
+        fields = '__all__'
+
+
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     student_programs = serializers.StringRelatedField(many=True)
-    teacher_programs = serializers.StringRelatedField(many=True)
+    teacher_programs = ProgramSerializer(many=True)#serializers.PrimaryKeyRelatedField(queryset=Program.objects.all(), many=True)
 
     class Meta:
         model = UserProfile
@@ -55,22 +85,4 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Exercise
-        fields = '__all__'
-
-
-class ShortUserProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    exercises = serializers.StringRelatedField(many=True)
-
-    class Meta:
-        model = UserProfile
-        fields = ['id', 'user', 'exercises']
-
-
-class ProgramSerializer(serializers.ModelSerializer):
-    lessons = serializers.StringRelatedField(many=True)
-    students = ShortUserProfileSerializer(many=True)
-
-    class Meta:
-        model = Program
         fields = '__all__'

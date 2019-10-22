@@ -2,7 +2,6 @@ import * as ActionTypes from './actionTypes';
 import {Fetch} from "../components/Utils";
 
 export const togglePage = page => {
-  console.log('toggling');
   return {
     type: ActionTypes.TOGGLE_PAGE,
     isVisible: page
@@ -25,6 +24,12 @@ export const toggleLessons = status => {
     lessonsOpen: status
   }
 };
+export const toggleGradebook = status => {
+  return {
+    type: ActionTypes.TOGGLE_GRADEBOOK,
+    gradebookOpen: status
+  }
+};
 export const toggleSignCourse = () => {
   return {
     type: ActionTypes.TOGGLE_SIGN_ON_COURSE,
@@ -34,6 +39,24 @@ export const addProfile = profile => ({
   type: ActionTypes.ADD_PROFILE,
   profile: profile
 });
+export const getGradeList = programs => {
+  let titles = [];
+  const grades = programs.map((program) => {
+    titles.push(program['title']);
+    return {
+      id: program['id'],
+      title: program['title'],
+      students: program['students']
+    }
+  });
+  return {
+    type: ActionTypes.ADD_GRADEBOOK,
+    gradebook: {
+      grades: grades,
+      titles: titles
+    }
+  }
+};
 export const getProfile = () => dispatch => {
   console.log("getting profile");
   Fetch('/profile/', 'GET')

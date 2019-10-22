@@ -1,8 +1,8 @@
 import React from 'react';
-import {Gradelist} from "../../constants/Gradebook";
 import './Gradebook.scss';
-//import '../../main.scss';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+import { getGradeList } from "../../actions";
+
 
 export class Gradebook extends React.Component {
   constructor(props){
@@ -10,47 +10,86 @@ export class Gradebook extends React.Component {
   }
   
   componentDidMount() {
-    console.log('mounting');
-    console.log(Gradelist);
-    this.setState({"programs": Gradelist})
+    this.props.getGradeList(this.props.profile.teacher_programs);
   }
   
+  navSelect = ev => {
+    const prevActive = document.querySelector('.navbar__item.active').classList;
+    document.querySelectorAll(`.gradebook__table.${prevActive.item(2)}`).forEach((e) => {
+      e.classList.add('hide');
+    });
+    prevActive.remove('active');
+    const newActive = ev.currentTarget.classList;
+    document.querySelectorAll(`.gradebook__table.${newActive.item(2)}`).forEach((e) => {
+      e.classList.remove('hide');
+    });
+    newActive.add('active');
+  };
+  
+  Thead = (title) => (
+    <>
+      <caption className="gradebook__caption  animate-pop-in">Student performance in {title}</caption>
+      <thead>
+        <tr className="gradebook__title  animate-pop-in">
+          <th className="gradebook__th">Student</th>
+          <th className="gradebook__th">Grade</th>
+          <th className="gradebook__th">Email</th>
+        </tr>
+      </thead>
+    </>
+  );
+  
+  Tbody = (students) => (
+    <>
+      <tbody>
+      {students.map((student) => {
+        return (<tr className="gradebook__tr animate-pop-in" key={student.id}>
+          <td className="gradebook__td">{student.user.username}</td>
+          <td className="gradebook__td">{student.done_count}</td>
+          <td className="gradebook__td">{student.user.email}</td>
+        </tr>
+      )})}
+      </tbody>
+    </>
+  );
+  
   render() {
-    console.log(this.state);
-    //const { programs } = this.state;
+    const { gradebook, titles, gradebookOpen } = this.props;
     return (
-      <div className="gradebook">
-        <table className="gradebook__table">
-          <caption>Student performance in </caption>
-          <thead>
-            <tr className="gradebook__title">
-              <th>Student</th>
-              <th>Grade</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Lorem</td>
-              <td>299310</td>
-              <td>1.1388</td>
-            </tr>
-            <tr>
-              <td>Lorem</td>
-              <td>sfefefsfdf</td>
-              <td>4545.4545</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className={'gradebook ' + (gradebookOpen ? '' : 'hide')}>
+        <div className="navbar" >
+          {titles.map((title, i) => {
+            return (
+              <div className={`navbar__item animate-pop-in ${title}` + (i === 0 ? " active" : "")} key={title} onClick={this.navSelect}>
+                <div className="navbar__title  animate-pop-in">{title}</div>
+              </div>
+            )
+          })}
+        </div>
+        {gradebook.map((program, i) => {
+          return(
+          <>
+            <table className={`gradebook__table ${program.title}` + (i !== 0 ? " hide" : "")} key={program.id}>
+              {this.Thead(program.title)}
+              {this.Tbody(program.students)}
+            </table>
+          </>
+        )})}
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
   return {
-    lessonsOpen: state.lessonsOpen
+    gradebookOpen: state.gradebookOpen,
+    gradebook: state.gradebook.grades,
+    titles: state.gradebook.titles,
+    profile: state.profile
   }
 };
-const GradebookContainer = connect(mapStateToProps)(Gradebook);
+const mapDispatchToProps = dispatch => ({
+  getGradeList: (programs) => dispatch(getGradeList(programs)),
+});
+const GradebookContainer = connect(mapStateToProps, mapDispatchToProps)(Gradebook);
 
 export default GradebookContainer;

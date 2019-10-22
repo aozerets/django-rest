@@ -1,8 +1,3 @@
-.animate-rows-right {
-  animation: rows-right 1s cubic-bezier(0, 0.9, 0.3, 1.2) forwards;
-  opacity: 0;
-  transform: translateX(-4rem) scale(.8);
-}
 .gradebook {
   align-items: center;
   background: #3e3e3e;
@@ -30,10 +25,75 @@
   &.hide {
     display: none;
   }
+  &__table {
+    margin: 1em auto 6em;
+    border-spacing: 1em .5em;
+    &.hide {
+      display: none;
+    }
+  }
+  &__title {
+    font-size: 72px;
+    font-family: 'Flanella', "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    animation-delay: .5s;
+    color: #F5F5F5;
+  }
+  &__caption {
+    font-size: 36px;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    animation-delay: .3s;
+    color: #F5F5F5;
+  }
+  &__tr {
+    animation-delay: .6s;
+  }
+  &__th {
+    font-weight: 100;
+  }
+  &__td {
+    padding: .2em 1em;
+  }
 }
-td:nth-child(1) { background: hsl(300, 90%, 90%); }
-td:nth-child(2) { background: hsl(290, 80%, 80%); }
+td:nth-child(1) { background: hsl(300, 90%, 90%);}
+td:nth-child(2) { background: hsl(290, 80%, 80%);}
 td:nth-child(3) { background: hsl(280, 80%, 70%); }
 td:nth-child(4) { background: hsl(270, 80%, 60%); }
 td:nth-child(5) { background: hsl(270, 90%, 50%); }
 td:nth-child(6) { background: hsl(270, 90%, 40%); }
+table, thead, tbody {
+  width: 80%;
+}
+.navbar {
+  margin: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  color: #F5F5F5;
+  &__item {
+    animation-delay: .2s;
+    display: flex;
+    flex-basis: 10%;
+    height: 2em;
+    margin: 0 auto;
+    box-sizing: border-box;
+    box-shadow: 0 0 8px 1px #F5F5F5;
+    border-radius: 1.4rem;
+    text-align: center;
+    cursor: pointer;
+    background: #C864FF;
+    color: #F5F5F5;
+    &:hover {
+      background-color: darken(#C864FF, 30%);
+    }
+    &.active {
+      box-shadow: 0 0 8px 1px #F5F5F5 inset;
+      color: #000;
+    }
+  }
+  &__title {
+    margin: auto;
+    padding: .2em;
+    white-space: nowrap;
+  }
+}
